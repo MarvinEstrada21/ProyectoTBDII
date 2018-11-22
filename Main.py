@@ -20,6 +20,7 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
         self.btnAgregarEntrenador.clicked.connect(self.addEntrenador)
         self.btnAgregarArbitro.clicked.connect(self.addArbitro)
         self.btnAgregarClub.clicked.connect(self.addClub)
+        self.btneliminarjugador.clicked.connect(self.hdelJugador)
 
     def addjugador(self):
         id = self.idjugador.text()
@@ -77,6 +78,19 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
         id = self.idclub.text()
         nombre = self.nombreclub.text()
         redisClient.hset("Nombre_Club", id, nombre)
+
+    def hdelJugador(self):
+        id = self.idjugador.text()
+        nombre = self.nombrejugador.text()
+        apellido = self.apellidojugador.text()
+        edad = self.edadjugador.text()
+        posicion = self.posicionjugador.text()
+        peso = self.pesojugador.text()
+        redisClient.hdel("Nombre_Jugador", id, nombre)
+        redisClient.hdel("Apellido_Jugador", id, apellido)
+        redisClient.hdel("Edad_Jugador", id, edad)
+        redisClient.hdel("Posicion_Jugador", id, posicion)
+        redisClient.hdel("Peso_Jugador", id, peso)
 
 
 if __name__ == "__main__":
