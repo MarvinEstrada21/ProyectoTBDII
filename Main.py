@@ -21,13 +21,16 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
         QtWidgets.QMainWindow.__init__(self)
         Ui_MainWindow.__init__(self)
         self.setupUi(self)
-
+        #AGREGAR
         self.btnAgregarJugador.clicked.connect(self.addjugador)
         self.btnAgregarEntrenador.clicked.connect(self.addEntrenador)
         self.btnAgregarArbitro.clicked.connect(self.addArbitro)
         self.btnAgregarClub.clicked.connect(self.addClub)
         self.btnAgregarEquipo.clicked.connect(self.addEquipo)
-        self.btneliminarjugador.clicked.connect(self.hdelJugador)
+        #ELIMINAR
+        self.btneliminarjugador.clicked.connect(self.delJugador)
+        self.btneliminarentrenador.clicked.connect(self.delEntrenador)
+        #DISQUE ACTUALIZAR
         self.actualizarequipo.clicked.connect(self.actualizarCBs)
 
     def addjugador(self):
@@ -99,7 +102,7 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
         for e in Club:
             self.cbClubEquipo.addItem(e)
 
-    def hdelJugador(self):
+    def delJugador(self):
         id = self.idjugador.text()
         nombre = self.nombrejugador.text()
         apellido = self.apellidojugador.text()
@@ -111,6 +114,44 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
         redisClient.hdel("Edad_Jugador", id, edad)
         redisClient.hdel("Posicion_Jugador", id, posicion)
         redisClient.hdel("Peso_Jugador", id, peso)
+
+    def delEntrenador(self):
+        id = self.identrenador.text()
+        nombre = self.nombreentrenador.text()
+        apellido = self.apellidoentrenador.text()
+        edad = self.edadentrenador.text()
+        peso = self.pesoentrenador.text()
+        redisClient.hdel("Nombre_Entrenador", id, nombre)
+        redisClient.hdel("Apellido_Entrenador", id, apellido)
+        redisClient.hdel("Edad_Entrenador", id, edad)
+        redisClient.hdel("Peso_Entrenador", id, peso)
+
+    def delArbitro(self):
+        id = self.idarbitro.text()
+        nombre = self.nombrearbitro.text()
+        apellido = self.apellidoarbitro.text()
+        edad = self.edadarbitro.text()
+        peso = self.pesoarbitro.text()
+        redisClient.hdel("Nombre_Arbitro", id, nombre)
+        redisClient.hdel("Apellido_Arbitro", id, apellido)
+        redisClient.hdel("Edad_Arbitro", id, edad)
+        redisClient.hdel("Peso_Arbitro", id, peso)
+
+    def delClub(self):
+        id = self.idclub.text()
+        nombre = self.nombreclub.text()
+        redisClient.hdel("Nombre_Club", id, nombre)
+
+    def delEquipo(self):
+        id = self.idequipo.text()
+        nombre = self.nombreequipo.text()
+        # jugador = self.txtEquipoJugador.text()
+        # entrenador = self.txtEquipoEntrenador.text()
+        # club = self.txtEquipoClub.text()
+        redisClient.hdel("Nombre_Equipo", id, nombre)
+        # redisClient.hdel("Jugadores_Equipo", id, jugador)
+        # redisClient.hdel("Entrenador_Equipo", id, entrenador)
+        # redisClient.hdel("Club_Equipo", id, club)
 
     def actualizarCBs(self):
         self.cbClubEquipo.clear()
