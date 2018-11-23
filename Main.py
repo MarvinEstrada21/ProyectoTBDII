@@ -1,6 +1,6 @@
 import sys
 import redis
-from PyQt5.QtGui import QIcon
+
 
 redisClient = redis.StrictRedis(host='localhost', port=6379, db=0)
 
@@ -13,6 +13,7 @@ Ui_MainWindow, QtBaseClass = uic.loadUiType(qtCreatorFile)
 Jugador = []
 Equipo = []
 Club = []
+Entrenador = []
 
 
 class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -25,9 +26,9 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
         self.btnAgregarEntrenador.clicked.connect(self.addEntrenador)
         self.btnAgregarArbitro.clicked.connect(self.addArbitro)
         self.btnAgregarClub.clicked.connect(self.addClub)
+        self.btnAgregarEquipo.clicked.connect(self.addEquipo)
         self.btneliminarjugador.clicked.connect(self.hdelJugador)
-        #Cargar combobox de Clubes
-        self.btnAgregarClub.clicked.connect(self.loadClubes)
+        self.actualizarequipo.clicked.connect(self.actualizarCBs)
 
     def addjugador(self):
         id = self.idjugador.text()
@@ -53,11 +54,13 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
         apellido = self.apellidoentrenador.text()
         edad = self.edadentrenador.text()
         peso = self.pesoentrenador.text()
-
         redisClient.hset("Nombre_Entrenador", id, nombre)
         redisClient.hset("Apellido_Entrenador", id, apellido)
         redisClient.hset("Edad_Entrenador", id, edad)
         redisClient.hset("Peso_Entrenador", id, peso)
+        Entrenador = [nombre]
+        for e in Entrenador:
+            self.cbEntrenadorEquipo.addItem(e)
 
     def addArbitro(self):
         id = self.idarbitro.text()
@@ -73,27 +76,28 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
     def addEquipo(self):
         id = self.idequipo.text()
         nombre = self.nombreequipo.text()
-        jugador = self.txtEquipoJugador.text()
-        entrenador = self.txtEquipoEntrenador.text()
-        club = self.txtEquipoClub.text()
+        #jugador = self.txtEquipoJugador.text()
+        #entrenador = self.txtEquipoEntrenador.text()
+        #club = self.txtEquipoClub.text()
         redisClient.hset("Nombre_Equipo", id, nombre)
-        redisClient.hset("Jugadores_Equipo", id, jugador)
-        redisClient.hset("Entrenador_Equipo", id, entrenador)
-        redisClient.hset("Club_Equipo", id, club)
+        #redisClient.hset("Jugadores_Equipo", id, jugador)
+        #redisClient.hset("Entrenador_Equipo", id, entrenador)
+        #redisClient.hset("Club_Equipo", id, club)
+        Equipo = [nombre]
+        for e in Equipo:
+            self.cbJugadorEquipo.addItem(e)
+            self.cbEncuentroE1.addItem(e)
+            self.cbEncuentroE2.addItem(e)
+        self.cbTipoEncuentro.addItem("Amistoso")
+        self.cbTipoEncuentro.addItem("Temporada")
 
     def addClub(self):
         id = self.idclub.text()
         nombre = self.nombreclub.text()
         redisClient.hset("Nombre_Club", id, nombre)
         Club = [nombre]
-        #Club = [self.tr(id), self.tr(nombre)]
-        print(Club)
-        #self.cbClubEquipo.clear()
-        #self.cbClubEquipo.addItems(Club)
-        self.cbClubEquipo.clear()
         for e in Club:
-            self.cbClubEquipo.addItem(e.str)
-
+            self.cbClubEquipo.addItem(e)
 
     def hdelJugador(self):
         id = self.idjugador.text()
@@ -108,17 +112,13 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
         redisClient.hdel("Posicion_Jugador", id, posicion)
         redisClient.hdel("Peso_Jugador", id, peso)
 
-    #def asignarClub(self):
-    #    Club.append(self.cbClubEquipo.currentText())
-    #    index = self.cbClubEquipo.currentIndex()
-    #    self.cbCLubEquipo.removeItem(index)
-
-    def loadClubes(self):
-        #self.cbClubEquipo.clear()
-        #for e in redisClient.hget("Nombre_Club", self.idclub.text()):
-            #self.cbClubEquipo.addItem(e.get('value'))
+    def actualizarCBs(self):
         self.cbClubEquipo.clear()
-        self.cbClubEquipo.addItems(Club)
+        lista = []
+        for i in Club:
+            i = self.redisClent.hget("Nombre_Club", self.idclub.text())
+            lista.append(i)
+        self.cbClubEquipo.addItems(lista)
 
 
 if __name__ == "__main__":

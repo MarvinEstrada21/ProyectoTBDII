@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="Agregar">
      <attribute name="title">
@@ -35,7 +35,7 @@
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>541</width>
+        <width>581</width>
         <height>331</height>
        </rect>
       </property>
@@ -170,6 +170,19 @@
          <string>Modificar Jugador</string>
         </property>
        </widget>
+       <widget class="QPushButton" name="actualizarjugador">
+        <property name="geometry">
+         <rect>
+          <x>370</x>
+          <y>190</y>
+          <width>151</width>
+          <height>27</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Actualizar Jugador</string>
+        </property>
+       </widget>
       </widget>
       <widget class="QWidget" name="Entrenador">
        <attribute name="title">
@@ -243,7 +256,7 @@
        <widget class="QPushButton" name="btnAgregarEntrenador">
         <property name="geometry">
          <rect>
-          <x>360</x>
+          <x>370</x>
           <y>20</y>
           <width>161</width>
           <height>27</height>
@@ -573,6 +586,19 @@
          <string>Modificar Equipo</string>
         </property>
        </widget>
+       <widget class="QPushButton" name="actualizarequipo">
+        <property name="geometry">
+         <rect>
+          <x>410</x>
+          <y>130</y>
+          <width>131</width>
+          <height>27</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Actualizar Equipo</string>
+        </property>
+       </widget>
       </widget>
       <widget class="QWidget" name="Temporada">
        <attribute name="title">
@@ -736,7 +762,7 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="Encuentro">
        <attribute name="title">
@@ -841,6 +867,19 @@
           <width>141</width>
           <height>27</height>
          </rect>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="actualizarencuentros">
+        <property name="geometry">
+         <rect>
+          <x>150</x>
+          <y>200</y>
+          <width>161</width>
+          <height>27</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Actualizar Encuentros</string>
         </property>
        </widget>
       </widget>
