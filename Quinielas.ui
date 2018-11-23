@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="Agregar">
      <attribute name="title">
@@ -52,7 +52,7 @@
           <x>9</x>
           <y>9</y>
           <width>331</width>
-          <height>221</height>
+          <height>241</height>
          </rect>
         </property>
         <layout class="QFormLayout" name="formLayout_4">
@@ -118,6 +118,16 @@
          </item>
          <item row="5" column="1">
           <widget class="QLineEdit" name="pesojugador"/>
+         </item>
+         <item row="6" column="0">
+          <widget class="QLabel" name="label_42">
+           <property name="text">
+            <string>Equipo</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="1">
+          <widget class="QComboBox" name="cbJugadorEquipo"/>
          </item>
         </layout>
        </widget>
@@ -489,6 +499,9 @@
            </property>
           </widget>
          </item>
+         <item row="0" column="1">
+          <widget class="QLineEdit" name="idequipo"/>
+         </item>
          <item row="1" column="0">
           <widget class="QLabel" name="label_16">
            <property name="text">
@@ -496,41 +509,28 @@
            </property>
           </widget>
          </item>
-         <item row="2" column="0">
-          <widget class="QLabel" name="label_17">
-           <property name="text">
-            <string>Jugadores</string>
-           </property>
-          </widget>
+         <item row="1" column="1">
+          <widget class="QLineEdit" name="nombreequipo"/>
          </item>
-         <item row="3" column="0">
+         <item row="2" column="0">
           <widget class="QLabel" name="label_18">
            <property name="text">
             <string>Entrenador</string>
            </property>
           </widget>
          </item>
-         <item row="0" column="1">
-          <widget class="QLineEdit" name="idequipo"/>
-         </item>
-         <item row="1" column="1">
-          <widget class="QLineEdit" name="nombreequipo"/>
-         </item>
-         <item row="4" column="0">
+         <item row="3" column="0">
           <widget class="QLabel" name="label_20">
            <property name="text">
             <string>Club</string>
            </property>
           </widget>
          </item>
-         <item row="3" column="1">
-          <widget class="QLineEdit" name="txtEquipoEntrenador"/>
-         </item>
          <item row="2" column="1">
-          <widget class="QLineEdit" name="txtEquipoJugadores"/>
+          <widget class="QComboBox" name="cbEntrenadorEquipo"/>
          </item>
-         <item row="4" column="1">
-          <widget class="QLineEdit" name="txtEquipoClub"/>
+         <item row="3" column="1">
+          <widget class="QComboBox" name="cbClubEquipo"/>
          </item>
         </layout>
        </widget>
@@ -736,7 +736,7 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="Encuentro">
        <attribute name="title">
@@ -813,32 +813,32 @@
          <string>Tipo de Encuentro</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="txtEncuentroE1">
+       <widget class="QComboBox" name="cbEncuentroE1">
         <property name="geometry">
          <rect>
-          <x>10</x>
+          <x>20</x>
           <y>40</y>
-          <width>181</width>
+          <width>141</width>
           <height>27</height>
          </rect>
         </property>
        </widget>
-       <widget class="QLineEdit" name="txtEncuentroE2">
+       <widget class="QComboBox" name="cbEncuentroE2">
         <property name="geometry">
          <rect>
           <x>390</x>
-          <y>40</y>
-          <width>181</width>
+          <y>50</y>
+          <width>151</width>
           <height>27</height>
          </rect>
         </property>
        </widget>
-       <widget class="QLineEdit" name="txtEncuentroEncuentro">
+       <widget class="QComboBox" name="cbTipoEncuentro">
         <property name="geometry">
          <rect>
-          <x>10</x>
-          <y>120</y>
-          <width>181</width>
+          <x>20</x>
+          <y>130</y>
+          <width>141</width>
           <height>27</height>
          </rect>
         </property>

@@ -1,5 +1,6 @@
 import sys
 import redis
+from PyQt5.QtGui import QIcon
 
 redisClient = redis.StrictRedis(host='localhost', port=6379, db=0)
 
@@ -8,6 +9,10 @@ from PyQt5 import uic, QtWidgets
 qtCreatorFile = "Quinielas.ui"  # Nombre del archivo aquí.
 
 Ui_MainWindow, QtBaseClass = uic.loadUiType(qtCreatorFile)
+
+Jugador = []
+Equipo = []
+Club = []
 
 
 class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -21,6 +26,8 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
         self.btnAgregarArbitro.clicked.connect(self.addArbitro)
         self.btnAgregarClub.clicked.connect(self.addClub)
         self.btneliminarjugador.clicked.connect(self.hdelJugador)
+        #Cargar combobox de Clubes
+        self.btnAgregarClub.clicked.connect(self.loadClubes)
 
     def addjugador(self):
         id = self.idjugador.text()
@@ -78,6 +85,15 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
         id = self.idclub.text()
         nombre = self.nombreclub.text()
         redisClient.hset("Nombre_Club", id, nombre)
+        Club = [nombre]
+        #Club = [self.tr(id), self.tr(nombre)]
+        print(Club)
+        #self.cbClubEquipo.clear()
+        #self.cbClubEquipo.addItems(Club)
+        self.cbClubEquipo.clear()
+        for e in Club:
+            self.cbClubEquipo.addItem(e.str)
+
 
     def hdelJugador(self):
         id = self.idjugador.text()
@@ -91,6 +107,18 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
         redisClient.hdel("Edad_Jugador", id, edad)
         redisClient.hdel("Posicion_Jugador", id, posicion)
         redisClient.hdel("Peso_Jugador", id, peso)
+
+    #def asignarClub(self):
+    #    Club.append(self.cbClubEquipo.currentText())
+    #    index = self.cbClubEquipo.currentIndex()
+    #    self.cbCLubEquipo.removeItem(index)
+
+    def loadClubes(self):
+        #self.cbClubEquipo.clear()
+        #for e in redisClient.hget("Nombre_Club", self.idclub.text()):
+            #self.cbClubEquipo.addItem(e.get('value'))
+        self.cbClubEquipo.clear()
+        self.cbClubEquipo.addItems(Club)
 
 
 if __name__ == "__main__":
