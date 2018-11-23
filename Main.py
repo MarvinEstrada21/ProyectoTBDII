@@ -1,7 +1,6 @@
 import sys
 import redis
 
-
 redisClient = redis.StrictRedis(host='localhost', port=6379, db=0)
 
 from PyQt5 import uic, QtWidgets
@@ -30,6 +29,9 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
         #ELIMINAR
         self.btneliminarjugador.clicked.connect(self.delJugador)
         self.btneliminarentrenador.clicked.connect(self.delEntrenador)
+        self.btneliminararbitro.clicked.connect(self.delArbitro)
+        self.btneliminarclub.clicked.connect(self.delClub)
+        self.btneliminarequipo.clicked.connect(self.delEquipo)
         #DISQUE ACTUALIZAR
         self.actualizarequipo.clicked.connect(self.actualizarCBs)
 
@@ -79,13 +81,11 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
     def addEquipo(self):
         id = self.idequipo.text()
         nombre = self.nombreequipo.text()
-        #jugador = self.txtEquipoJugador.text()
-        #entrenador = self.txtEquipoEntrenador.text()
-        #club = self.txtEquipoClub.text()
+        entrenador = self.cbEntrenadorEquipo.currentText()
+        club = self.cbClubEquipo.currentText()
         redisClient.hset("Nombre_Equipo", id, nombre)
-        #redisClient.hset("Jugadores_Equipo", id, jugador)
-        #redisClient.hset("Entrenador_Equipo", id, entrenador)
-        #redisClient.hset("Club_Equipo", id, club)
+        redisClient.hset("Entrenador_Equipo", id, entrenador)
+        redisClient.hset("Club_Equipo", id, club)
         Equipo = [nombre]
         for e in Equipo:
             self.cbJugadorEquipo.addItem(e)
@@ -145,13 +145,11 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
     def delEquipo(self):
         id = self.idequipo.text()
         nombre = self.nombreequipo.text()
-        # jugador = self.txtEquipoJugador.text()
-        # entrenador = self.txtEquipoEntrenador.text()
-        # club = self.txtEquipoClub.text()
+        entrenador = self.cbEntrenadorEquipo.currentText()
+        club = self.cbClubEquipo.currentText()
         redisClient.hdel("Nombre_Equipo", id, nombre)
-        # redisClient.hdel("Jugadores_Equipo", id, jugador)
-        # redisClient.hdel("Entrenador_Equipo", id, entrenador)
-        # redisClient.hdel("Club_Equipo", id, club)
+        redisClient.hdel("Entrenador_Equipo", id, entrenador)
+        redisClient.hdel("Club_Equipo", id, club)
 
     def actualizarCBs(self):
         self.cbClubEquipo.clear()
